@@ -1,5 +1,6 @@
 package com.dayone.web;
 
+import com.dayone.exception.impl.EmptyTickerException;
 import com.dayone.model.Company;
 import com.dayone.model.constants.CacheKey;
 import com.dayone.persist.entity.CompanyEntity;
@@ -40,7 +41,7 @@ public class CompanyController {
     public  ResponseEntity<?> addCompany(@RequestBody Company request) {
         String ticker = request.getTicker().trim();
         if (ObjectUtils.isEmpty(ticker)) {
-            throw new RuntimeException("ticker is empty");
+            throw new EmptyTickerException();
         }
 
         Company company = this.companyService.save(ticker);
